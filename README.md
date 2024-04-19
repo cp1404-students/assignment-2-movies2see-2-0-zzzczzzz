@@ -6,7 +6,7 @@ A Python project with GUI and Console programs that (re)use classes to manage a 
 
 ## 1. How long did the entire project (assignment 2) take you?
 
-### Estimate:
+### Estimate: 8hours
 
 ...
 
