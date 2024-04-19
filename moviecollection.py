@@ -28,3 +28,19 @@ class MovieCollection:
 
         movie = Movie(title, year, category)
         self.movies.append(movie)
+
+    def get_number_of_unwatched_movies(self):
+        """Calculate number of unwatched movies using sum"""
+        return sum(movie.is_watched for movie in self.movies if not movie.is_watched)
+
+    def get_number_of_watched_movies(self):
+        """Calculate number of watched movies using sum"""
+        return sum(movie.is_watched for movie in self.movies if movie.is_watched)
+
+    def load_movies(self):
+        """Load movies from file movies.json, use class Movie for proper load"""
+        with open("movies.json", 'r') as file:
+            movies_data = json.load(file)
+            for movie_data in movies_data:
+                movie = Movie(movie_data['title'], movie_data['year'], movie_data['category'], movie_data['is_watched'])
+                self.movies.append(movie)
