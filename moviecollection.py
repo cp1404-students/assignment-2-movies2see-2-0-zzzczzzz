@@ -44,3 +44,21 @@ class MovieCollection:
             for movie_data in movies_data:
                 movie = Movie(movie_data['title'], movie_data['year'], movie_data['category'], movie_data['is_watched'])
                 self.movies.append(movie)
+
+    def save_movies(self):
+        """create new list with adding all new movies and exisiting moves, save them in json file"""
+        movies_data = []
+        for movie in self.movies:
+            movies_data.append({
+                'title': movie.title,
+                'year': movie.year,
+                'category': movie.category,
+                'is_watched': movie.is_watched
+            })
+        with open("movies.json", 'w') as file:
+            json.dump(movies_data, file)
+
+    def sort(self, key):
+        """sort movies by title using itemgetter"""
+        self.movies.sort(key=itemgetter(key, 'title'))
+
