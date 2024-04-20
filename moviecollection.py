@@ -5,7 +5,7 @@
 
 from movie import Movie
 import json
-from operator import itemgetter
+from operator import attrgetter
 
 
 class MovieCollection:
@@ -13,20 +13,26 @@ class MovieCollection:
         """Initial value for MovieCollection, emtpy string for movies"""
         self.movies = []
 
-    def add_movie(self, title, year, category):
-        """Add movie, error check each variable, import class Movie for storing"""
-        if title == "" or year == "" or category == "":
+    def __str__(self):
+        """Return a string representation of the MovieCollection."""
+
+        movie_list = "\n".join(str(movie) for movie in self.movies)
+        return f"Movie Collection:\n{movie_list}"
+
+    def add_movie(self, movie):
+        """Add a Movie object to the movie collection."""
+
+        if movie.title == "" or movie.year == "" or movie.category == "":
             return "All fields must be completed"
 
         try:
-            year = int(year)
+            year = int(movie.year)
         except ValueError:
             return "Please enter a valid number for the year"
 
-        if category not in ["Action", "Comedy", "Documentary", "Drama", "Fantasy", "Thriller"]:
+        if movie.category not in ["Action", "Comedy", "Documentary", "Drama", "Fantasy", "Thriller"]:
             return "Invalid category. Please choose from: Action, Comedy, Documentary, Drama, Fantasy, Thriller"
 
-        movie = Movie(title, year, category)
         self.movies.append(movie)
 
     def get_number_of_unwatched_movies(self):
@@ -59,6 +65,5 @@ class MovieCollection:
             json.dump(movies_data, file)
 
     def sort(self, key):
-        """sort movies by title using itemgetter"""
-        self.movies.sort(key=itemgetter(key, 'title'))
-
+        """sort movies by title using attrebutegetter"""
+        self.movies.sort(key=attrgetter(key))
