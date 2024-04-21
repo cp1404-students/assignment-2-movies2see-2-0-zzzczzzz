@@ -43,9 +43,9 @@ class MovieCollection:
         """Calculate number of watched movies using sum"""
         return sum(movie.is_watched for movie in self.movies if movie.is_watched)
 
-    def load_movies(self):
+    def load_movies(self, filename):
         """Load movies from file movies.json, use class Movie for proper load"""
-        with open("movies.json", 'r') as file:
+        with open(filename, 'r') as file:
             movies_data = json.load(file)
             for movie_data in movies_data:
                 movie = Movie(movie_data['title'], movie_data['year'], movie_data['category'], movie_data['is_watched'])
